@@ -1,0 +1,16 @@
+{
+    "name": "dvikan/banks-hsts",
+    "description": "A tool for checking if a list of webservers run HSTS",
+    "authors": [
+        {
+            "name": "Dag",
+            "email": "me@dvikan.no"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {"vikan\\hsts\\": "src"}
+    }
+}
