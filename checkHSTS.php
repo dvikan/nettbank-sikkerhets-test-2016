@@ -50,7 +50,7 @@ $allBanks = array_merge($investmentBanks, $savingsBanks);
 $ua = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36';
 
 $client = new Client([
-    'timeout'  => 5.0,
+    'timeout'  => 20.0,
     'allow_redirects' => false, // Do not follow redirects
     'header' => [
         'User-Agent' => $ua,
@@ -59,14 +59,11 @@ $client = new Client([
 
 foreach ($allBanks as $bank) {
 
-    // Fetch HTTP response
     $response = $client->get($bank->url);
 
-    // Look for HSTS header
     $hsts = $response->getHeader('Strict-Transport-Security');
 
-    // Empty result?
-    $hasHsts = empty($hsts) ? 'no' : 'yes';
-
-    print "{$bank->name}, {$bank->url}, {$response->getStatusCode()}, $hasHsts\n";
+    if (empty($hsts)) {
+        print "MANGLER HSTS: {$bank->name}\n";
+    }
 }
